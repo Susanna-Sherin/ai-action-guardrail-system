@@ -1,0 +1,20 @@
+rules:
+  - name: block_bulk_delete
+    match:
+      tool: db_delete
+      condition: "params['record_count'] > 100"
+    action: block
+
+  - name: hitl_external_email
+    match:
+      tool: send_email
+      condition: "params['recipient_domain'] != 'company.com'"
+    action: require_hitl
+
+  - name: log_confidential_read
+    match:
+      tool: read_file
+      condition: "'confidential' in params['path']"
+    action: log_and_allow
+
+default_action: log_and_allow

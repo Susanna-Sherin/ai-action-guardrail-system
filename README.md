@@ -8,7 +8,7 @@ Built for Aivar Innovations' Agentic AI Task (PS-3.1).
 
 ## Status
 - [x] Phase 0 — project skeleton, dependencies, env config
-- [ ] Phase 1 — policy engine core
+- [x] Phase 1 — policy engine core (12/12 tests passing)
 - [ ] Phase 2 — agent + real LLM integration
 - [ ] Phase 3 — FastAPI backend
 - [ ] Phase 4 — persistence layer

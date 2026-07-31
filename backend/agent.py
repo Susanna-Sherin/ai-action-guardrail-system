@@ -144,9 +144,76 @@ User Request:
 
     except Exception as e:
 
-        logger.exception("Gemini request failed.")
+        logger.exception("Gemini request failed. Using local fallback agent.")
 
-        raise RuntimeError(str(e))
+        return generate_local_tool_call(user_prompt)
+
+def generate_local_tool_call(user_prompt: str) -> dict:
+    """
+    Fallback rule-based agent.
+    Used when LLM is unavailable.
+    """
+
+    prompt = user_prompt.lower()
+
+    # Database delete
+    if "delete" in prompt:
+
+        numbers = [
+            int(word)
+            for word in prompt.split()
+            if word.isdigit()
+        ]
+
+        count = numbers[0] if numbers else 1
+
+        return {
+            "tool": "db_delete",
+            "params": {
+                "record_count": count
+            }
+        }
+
+
+    # Email
+    if "email" in prompt or "mail" in prompt:
+
+        domain = "external.com"
+
+        if "gmail" in prompt:
+            domain = "gmail.com"
+
+        elif "company" in prompt:
+            domain = "company.com"
+
+
+        return {
+            "tool": "send_email",
+            "params": {
+                "recipient_domain": domain
+            }
+        }
+
+
+    # File read
+    if "read" in prompt or "file" in prompt:
+
+        path = "confidential/file.txt"
+
+        return {
+            "tool": "read_file",
+            "params": {
+                "path": path
+            }
+        }
+
+
+    return {
+        "tool": "read_file",
+        "params": {
+            "path": "normal/file.txt"
+        }
+    }
 
 
 # ---------------------------------------------------

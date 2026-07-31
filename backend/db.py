@@ -7,12 +7,29 @@ from datetime import datetime
 from backend.config import DB_PATH
 from sqlalchemy import func
 
-DATABASE_URL = f"sqlite:///{DB_PATH}"
+import os
 
-engine = create_engine(
-    DATABASE_URL,
-    connect_args={"check_same_thread": False}
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    # Render PostgreSQL
+    if DATABASE_URL.startswith("postgres://"):
+        DATABASE_URL = DATABASE_URL.replace(
+            "postgres://",
+            "postgresql://",
+            1
+        )
+
+    engine = create_engine(DATABASE_URL)
+
+else:
+    # Local SQLite
+    DATABASE_URL = f"sqlite:///{DB_PATH}"
+
+    engine = create_engine(
+        DATABASE_URL,
+        connect_args={"check_same_thread": False}
+    )
 
 SessionLocal = sessionmaker(
     autoflush=False,

@@ -1,9 +1,34 @@
+# Python cache
 __pycache__/
-*.pyc
-.env
-data/
-*.db
+*.py[cod]
+*.pyo
+
+# Virtual environment
 .venv/
 venv/
-.DS_Store
+
+# Environment secrets
+.env
+
+# Database files
+*.db
+
+# Test cache
+.pytest_cache/
+
+# Generated data
+data/*.db
+
+# Logs
+*.log
+
+# Frontend dependencies
 node_modules/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

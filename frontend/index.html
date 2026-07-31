@@ -1,1 +1,236 @@
-<!-- Implemented in Phase 6 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Action Guardrail Dashboard</title>
+
+    <link rel="stylesheet" href="/frontend/styles.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+
+            <h1>🛡️ AI Action Guardrail Dashboard</h1>
+
+            <p>
+                Enterprise AI Governance with Human-in-the-Loop (HITL)
+            </p>
+
+        </header>
+
+        <!-- Backend Status -->
+
+        <section class="card">
+
+            <h2>Dashboard Overview</h2>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                        <h3>Total Requests</h3>
+
+                        <h1 id="totalRequests">0</h1>
+
+                </div>
+
+                <div class="stat-card blocked">
+
+                    <h3>Blocked</h3>
+
+                    <h1 id="blockedCount">0</h1>
+
+                </div>
+
+                <div class="stat-card allowed">
+
+                    <h3>Allowed</h3>
+
+                    <h1 id="allowedCount">0</h1>
+
+                </div>
+
+                <div class="stat-card hitl">
+
+                    <h3>Pending HITL</h3>
+
+                    <h1 id="pendingCount">0</h1>
+
+                </div>
+
+            </div>
+
+        </section>
+        <section class="card">
+
+            <h2>Backend Status</h2>
+
+            <div id="healthStatus">
+
+                Checking Backend...
+
+            </div>
+
+        </section>
+
+        <!-- Prompt -->
+
+        <section class="card">
+
+            <h2>Agent Prompt</h2>
+
+            <textarea
+                id="promptInput"
+                rows="5"
+                placeholder="Example: Delete 500 customer records"
+            ></textarea>
+
+            <div class="options">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="dryRun"
+                    >
+
+                    Dry Run (Simulate Only)
+
+                </label>
+
+            </div>
+
+            <button id="executeBtn">
+
+                Execute Agent
+
+            </button>
+
+        </section>
+
+        <!-- Tool Call -->
+
+        <section class="card">
+
+            <h2>Generated Tool Call</h2>
+
+            <pre id="toolCall">
+
+Waiting...
+
+            </pre>
+
+        </section>
+
+        <!-- Decision -->
+
+        <section class="card">
+
+            <h2>Policy Decision</h2>
+
+            <div id="decision">
+
+Waiting...
+
+            </div>
+
+        </section>
+
+        <!-- Execution -->
+
+        <section class="card">
+
+            <h2>Execution Result</h2>
+
+            <div id="execution">
+
+Waiting...
+
+            </div>
+
+        </section>
+
+        <!-- Audit -->
+
+        <section class="card">
+
+            <h2>Audit Logs</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Prompt</th>
+
+                        <th>Tool</th>
+
+                        <th>Decision</th>
+
+                        <th>Rule</th>
+
+                        <th>Time</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="auditTable">
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+        <!-- HITL -->
+
+        <section class="card">
+
+            <h2>Pending HITL Queue</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Prompt</th>
+
+                        <th>Tool</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="hitlTable">
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </div>
+
+    <script src="/frontend/app.js"></script>
+
+</body>
+
+</html>

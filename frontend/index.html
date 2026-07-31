@@ -2,15 +2,10 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>AI Action Guardrail Dashboard</title>
-
     <link rel="stylesheet" href="/frontend/styles.css">
-
 </head>
 
 <body>
@@ -18,74 +13,49 @@
     <div class="container">
 
         <header>
-
             <h1>🛡️ AI Action Guardrail Dashboard</h1>
-
-            <p>
-                Enterprise AI Governance with Human-in-the-Loop (HITL)
-            </p>
-
+            <p>Enterprise AI Governance with Human-in-the-Loop (HITL)</p>
         </header>
 
-        <!-- Backend Status -->
-
+        <!-- Dashboard Overview -->
         <section class="card">
-
             <h2>Dashboard Overview</h2>
 
             <div class="stats-grid">
 
                 <div class="stat-card">
-
-                        <h3>Total Requests</h3>
-
-                        <h1 id="totalRequests">0</h1>
-
+                    <h3>Total Requests</h3>
+                    <h1 id="totalRequests">0</h1>
                 </div>
 
                 <div class="stat-card blocked">
-
                     <h3>Blocked</h3>
-
                     <h1 id="blockedCount">0</h1>
-
                 </div>
 
                 <div class="stat-card allowed">
-
                     <h3>Allowed</h3>
-
                     <h1 id="allowedCount">0</h1>
-
                 </div>
 
                 <div class="stat-card hitl">
-
                     <h3>Pending HITL</h3>
-
                     <h1 id="pendingCount">0</h1>
-
                 </div>
 
             </div>
-
         </section>
-        <section class="card">
 
+        <!-- Backend Status -->
+        <section class="card">
             <h2>Backend Status</h2>
-
             <div id="healthStatus">
-
                 Checking Backend...
-
             </div>
-
         </section>
 
-        <!-- Prompt -->
-
+        <!-- Agent Prompt -->
         <section class="card">
-
             <h2>Agent Prompt</h2>
 
             <textarea
@@ -95,143 +65,94 @@
             ></textarea>
 
             <div class="options">
-
                 <label>
-
                     <input
                         type="checkbox"
                         id="dryRun"
                     >
-
                     Dry Run (Simulate Only)
-
                 </label>
-
             </div>
 
             <button id="executeBtn">
-
                 Execute Agent
-
             </button>
-
         </section>
 
-        <!-- Tool Call -->
-
+        <!-- Generated Tool Call -->
         <section class="card">
-
             <h2>Generated Tool Call</h2>
 
             <pre id="toolCall">
-
 Waiting...
-
             </pre>
-
         </section>
 
-        <!-- Decision -->
-
+        <!-- Policy Decision -->
         <section class="card">
-
             <h2>Policy Decision</h2>
 
             <div id="decision">
-
 Waiting...
-
             </div>
-
         </section>
 
-        <!-- Execution -->
-
+        <!-- Execution Result -->
         <section class="card">
-
             <h2>Execution Result</h2>
 
             <div id="execution">
-
 Waiting...
-
             </div>
-
         </section>
 
-        <!-- Audit -->
-
+        <!-- Audit Logs -->
         <section class="card">
-
             <h2>Audit Logs</h2>
 
-            <div class="table-container"></div>
+            <div class="table-container">
+                <table>
 
-            <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Prompt</th>
+                            <th>Tool</th>
+                            <th>Decision</th>
+                            <th>Rule</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
 
-                <thead>
+                    <tbody id="auditTable">
+                    </tbody>
 
-                    <tr>
-
-                        <th>ID</th>
-
-                        <th>Prompt</th>
-
-                        <th>Tool</th>
-
-                        <th>Decision</th>
-
-                        <th>Rule</th>
-
-                        <th>Time</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="auditTable">
-
-                </tbody>
-
-            </table>
-            </section></div>
-
+                </table>
+            </div>
         </section>
 
-        </section>
-
-        <!-- HITL -->
-
+        <!-- Pending HITL Queue -->
         <section class="card">
-
             <h2>Pending HITL Queue</h2>
 
-            <table>
+            <div class="table-container">
+                <table>
 
-                <thead>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Prompt</th>
+                            <th>Tool</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
 
-                    <tr>
+                    <tbody id="hitlTable">
+                    </tbody>
 
-                        <th>ID</th>
-
-                        <th>Prompt</th>
-
-                        <th>Tool</th>
-
-                        <th>Status</th>
-
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="hitlTable">
-
-                </tbody>
-
-            </table>
-
+                </table>
+            </div>
         </section>
 
     </div>

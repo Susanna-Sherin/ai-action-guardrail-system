@@ -208,3 +208,60 @@ border-left:8px solid #28a745;
 border-left:8px solid orange;
 
 }
+
+/* Decision Result Styling */
+
+.blocked-result {
+
+    background: #ffe6e6;
+    border-left: 8px solid #dc3545;
+    padding: 15px;
+    border-radius: 8px;
+
+}
+
+.allowed-result {
+
+    background: #e6ffe6;
+    border-left: 8px solid #28a745;
+    padding: 15px;
+    border-radius: 8px;
+
+}
+
+.hitl-result {
+
+    background: #fff4e5;
+    border-left: 8px solid orange;
+    padding: 15px;
+    border-radius: 8px;
+
+}
+
+.blocked-result h3,
+.allowed-result h3,
+.hitl-result h3 {
+
+    margin-bottom: 10px;
+
+}
+
+/* HITL Waiting Status */
+
+.waiting-status {
+
+    display: inline-block;
+    background: #fff4e5;
+    color: #d97706;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 13px;
+
+}
+
+/* Responsive table handling */
+
+.table-container {
+    overflow-x: auto;
+}

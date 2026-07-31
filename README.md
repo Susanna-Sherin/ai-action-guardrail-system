@@ -15,6 +15,14 @@ It provides a safety layer between autonomous AI agents and real-world tools.
 
 ---
 
+🚀 Live Demo
+
+Live Application:
+https://ai-action-guardrail-system.onrender.com
+
+GitHub Repository:
+https://github.com/Susanna-Sherin/ai-action-guardrail-system
+
 # Architecture
              User
               |
@@ -130,7 +138,8 @@ Fully containerized using:
 
 Docker
 Docker Compose
-Technology Stack
+
+## Technology Stack
 Backend
 Python
 FastAPI
@@ -148,7 +157,9 @@ JavaScript
 Deployment
 Docker
 Docker Compose
-Project Structure
+
+
+## Project Structure
 action-guardrail/
 
 │
@@ -173,15 +184,16 @@ action-guardrail/
 ├── docker-compose.yml
 ├── requirements.txt
 └── README.md
-Running Locally
-Prerequisites
+## Running Locally
+## Prerequisites
 
 Install:
 
 Python 3.9+
 Docker
 Docker Compose
-Environment Setup
+
+## Environment Setup
 
 Create environment file:
 
@@ -203,7 +215,9 @@ http://localhost:8000
 Swagger API:
 
 http://localhost:8000/docs
-API Endpoints
+
+
+## API Endpoints
 Endpoint	Description
 GET /health	Backend health check
 POST /agent/request	Submit AI action request
@@ -211,7 +225,9 @@ GET /audit	View audit logs
 GET /hitl	View pending approvals
 POST /hitl/{id}/approve	Approve action
 POST /hitl/{id}/reject	Reject action
-Example Workflow
+
+
+## Example Workflow
 Allowed Action
 
 Request:
@@ -239,7 +255,9 @@ Send confidential email externally
 Decision:
 
 REQUIRES HUMAN APPROVAL
-Testing
+
+
+## Testing
 
 Run:
 
@@ -250,7 +268,9 @@ Tests cover:
 Policy evaluation
 Agent behavior
 Guardrail scenarios
-Future Improvements
+
+
+## Future Improvements
 Authentication and authorization
 Real tool execution connectors
 Cloud deployment

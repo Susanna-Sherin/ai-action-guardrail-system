@@ -1,6 +1,7 @@
 import json
 import logging
 
+from backend.metrics import metrics, estimate_tokens, start_timer, end_timer
 from google import genai
 
 from backend.config import GEMINI_API_KEY, GEMINI_MODEL
@@ -115,10 +116,11 @@ def parse_response(response_text: str) -> dict:
 
 
 def generate_tool_call(user_prompt: str) -> dict:
-    """
-    Converts a natural language request into
-    a structured tool call using Gemini.
-    """
+
+    timer = start_timer()
+
+    metrics["requests"] += 1
+    metrics["prompt_tokens"] += estimate_tokens(user_prompt)
 
     prompt = f"""
 {SYSTEM_PROMPT}
@@ -129,12 +131,12 @@ User Request:
 """
 
     try:
-        print("Model:", GEMINI_MODEL)
-
         response = client.models.generate_content(
             model=GEMINI_MODEL or "gemini-flash-latest",
             contents=prompt,
         )
+
+        end_timer(timer)
 
         tool_call = parse_response(response.text)
 
@@ -142,7 +144,9 @@ User Request:
 
         return tool_call
 
-    except Exception as e:
+    except Exception:
+
+        end_timer(timer)
 
         logger.exception("Gemini request failed. Using local fallback agent.")
 

@@ -8,6 +8,12 @@ from backend.logging_config import logger
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pathlib import Path
+from backend.metrics import (
+    metrics,
+    average_latency,
+    start_timer,
+    end_timer,
+)
 
 from backend.db import (
     create_database,
@@ -49,8 +55,14 @@ policy = load_policy(POLICY_FILE)
 @app.get("/stats")
 def stats():
 
-    return get_statistics()
-
+    return {
+        "requests": metrics["requests"],
+        "allowed": metrics["allowed"],
+        "blocked": metrics["blocked"],
+        "hitl": metrics["hitl"],
+        "prompt_tokens": metrics["prompt_tokens"],
+        "average_latency_ms": average_latency()
+    }
 @app.get("/")
 def root():
     return FileResponse("frontend/index.html")
@@ -86,6 +98,7 @@ def agent_request(request: AgentRequest):
         )
 
         if decision["outcome"] == "require_hitl":
+            metrics["hitl"] += 1
             add_hitl_request(
                 prompt=request.prompt,
                 tool=tool_call["tool"],
@@ -101,6 +114,7 @@ def agent_request(request: AgentRequest):
             }
 
         if decision["outcome"] == "block":
+            metrics["blocked"] += 1
             return {
                 "tool_call": tool_call,
                 "decision": decision,
@@ -120,6 +134,8 @@ def agent_request(request: AgentRequest):
                     "message": "Execution skipped due to dry-run mode."
                 }
             }
+
+        metrics["allowed"] += 1
 
         result = execute_tool(tool_call)
 

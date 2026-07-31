@@ -371,24 +371,19 @@ async function rejectRequest(id) {
 
 
 
-
-async function loadStats(){
-
+async function loadStats() {
 
     const response = await fetch(`${BASE_URL}/stats`);
 
     const stats = await response.json();
 
-
-
-    document.getElementById("totalRequests").textContent = stats.total;
+    document.getElementById("totalRequests").textContent = stats.requests;
 
     document.getElementById("blockedCount").textContent = stats.blocked;
 
     document.getElementById("allowedCount").textContent = stats.allowed;
 
-    document.getElementById("pendingCount").textContent = stats.pending;
-
+    document.getElementById("pendingCount").textContent = stats.hitl;
 
 }
 
